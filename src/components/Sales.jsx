@@ -75,7 +75,7 @@ const SalesTable = () => {
               label: productName,
               data: dataForProduct,
               fill: false,
-              borderColor: getRandomColor(),
+              backgroundColor: getRandomColor(),
               borderWidth: 2,
             };
           }),
@@ -111,8 +111,8 @@ const SalesTable = () => {
       {
         label: 'Total Sales',
         data: salesData.map(item => item.TotalSales),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 10)',
+        borderColor: 'rgba(75, 192, 192, 10)',
         borderWidth: 1,
       },
     ],
@@ -136,20 +136,20 @@ const SalesTable = () => {
       {
         data: Array.from(categorySalesMap.values()),
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 10)',
+          'rgba(54, 162, 235, 10)',
+          'rgba(255, 206, 86, 10)',
+          'rgba(75, 192, 192, 10)',
+          'rgba(153, 102, 255, 10)',
+          'rgba(255, 159, 64, 10)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 10)',
+          'rgba(54, 162, 235, 10)',
+          'rgba(255, 206, 86, 10)',
+          'rgba(75, 192, 192, 10)',
+          'rgba(153, 102, 255, 10)',
+          'rgba(255, 159, 64, 10)',
         ],
         borderWidth: 1,
       },
@@ -159,81 +159,94 @@ const SalesTable = () => {
   const topProducts = [...salesData].sort((a, b) => b.TotalSales - a.TotalSales).slice(0, 5);
 
   return (
-    <div className='flex flex-row'>
-      <Card className="mt-6 w-96">
-        <CardBody>
-          {salesData.length > 0 && (
-            <div className="mx-auto my-9">
-              <h2 className="text-2xl font-bold mb-4">Sales Chart</h2>
-              <Bar
-                data={chartData}
-                options={{
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                    },
-                  },
-                }}
-                height={400}
-                width={800}
-              />
-            </div>
-          )}
-        </CardBody>
-      </Card>
-      <Card className="mt-6 w-96">
-        <CardBody>
-          {salesData.length > 0 && (
-            <div className="mx-auto my-9">
-              <h2 className="text-2xl font-bold mb-4">Sales Chart</h2>
-              <Doughnut data={doughnutData} height={400} width={800} />
-            </div>
-          )}
-        </CardBody>
-      </Card>
-      <Card className="mt-6 flex-grow">
-        <CardBody>
-          {monthlySalesData && (
-            <div className="mx-auto my-9">
-              <h2 className="text-2xl font-bold mb-4">Monthly Sales Chart</h2>
-              <Line
-                data={lineChartData}
-                options={{
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                    },
-                  },
-                }}
-                height={400}
-                width={800}
-              />
-            </div>
-          )}
-        </CardBody>
-      </Card>
-      <div className="max-w-4xl mx-auto my-8">
-        <h2 className="text-2xl font-bold mb-4">Sales Data</h2>
-        <table className="w-full table-auto">
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Category</th>
-              <th>Total Sales</th>
-            </tr>
-          </thead>
-          <tbody>
-            {topProducts.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                <td>{row.ProductName}</td>
-                <td>{row.Category}</td>
-                <td>{row.TotalSales}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <Card className="mx-7 my-12 mt-14 bg-gray-300 ">
+      <div className='flex flex-row item-around'>
+        <div className="mt-2 w-96 ">
+          {/* bar grapph */}
+          <Card className="mt-5 w-96 h-60 mx-7 flex-grow bg-gray-100">
+            <CardBody>
+              {salesData.length > 0 && (
+                <div className="mx-auto ">
+                  <h2 className="text-2xl font-bold mb-4">Sales Chart</h2>
+                  <Bar
+                    data={chartData}
+                    options={{
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                        },
+                      },
+                    }}
+                    height={400}
+                    width={800}
+                  />
+                </div>
+              )}
+            </CardBody>
+          </Card>
+          {/* monthlySalesData chart  */}
+          <div className='my-9 mt-7'>
+            <Card className="mx-7 h-60 w-96 flex-grow bg-gray-100">
+              <CardBody>
+                {monthlySalesData && (
+                  <div className="mx-auto">
+                    <h2 className="text-2xl font-bold mb-4">Monthly Sales Chart</h2>
+                    <Line
+                      data={lineChartData}
+                      options={{
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                          },
+                        },
+                      }}
+                      height={400}
+                      width={800}
+                    />
+                  </div>
+                )}
+              </CardBody>
+            </Card>
+          </div>
+        </div>
+        {/* pie chart  */}
+        <Card className="mt-7 h-120 mb-9 w-96 ml-14  bg-gray-100">
+          <CardBody>
+            {salesData.length > 0 && (
+              <div className="mx-auto my-2 ">
+                <h2 className="text-red-200 text-2xl font-bold mb-9 ">Catagories-wise Chart</h2>
+                <Doughnut data={doughnutData} height={400} width={800} />
+              </div>
+            )}
+          </CardBody>
+        </Card>
+        {/* prduct table */}
+        <Card className='mt-7 ml-7 h-72 w-96 flex-row bg-gray-100'>
+          <div className="max-w-4xl mx-auto my-8">
+            <h2 className="text-2xl text-red-900 font-bold mb-4">Top-Selling Product Table</h2>
+            <table className="w-full table-auto">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Total Sales</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topProducts.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    <td>{row.ProductName}</td>
+                    <td>{row.Category}</td>
+                    <td>{row.TotalSales}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
       </div>
-    </div>
+    </Card>
+
   );
 };
 
